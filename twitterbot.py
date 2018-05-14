@@ -130,23 +130,28 @@ def location():
             time_zone[time_zone1] += 1
         else:
             time_zone[time_zone1] = 1
-    if time_zone==None or time_zone=="" or time_zone[time_zone1]==1:
+    # limiting the display of the values
+    if None in time_zone:
         del time_zone[None]
-        del time_zone[""]
-        del time_zone[:][1]
-    if location== None or location== "" or location[loca]==1:
+    if '' in time_zone:
+        del time_zone['']
+    if '' in language:
+        del language['']
+    if '' in location:
+        del location['']
+    if None in location:
         del location[None]
-        del location[""]
-        del location[:][1]
-    if language== None or language=="":
+    if None in language:
         del language[None]
-        del language[""]
+    language_count = dict(Counter(language).most_common(5))
     print("Language:")
-    print(language)
+    print(language_count)
+    location_count = dict(Counter(location).most_common(5))
     print("Location:")
-    print(location)
+    print(location_count)
+    time_zone_count = dict(Counter(time_zone).most_common(5))
     print("Time Zone:")
-    print(time_zone)
+    print(time_zone_count)
 
 # compare tweets
 def compare():
@@ -180,7 +185,7 @@ def compare():
         cur_tweet = re.split(r"\s", cur_tweet)
         for word in cur_tweet:
             word = word.upper()
-            if word == "INDIA":
+            if word == "INDIA" or word == "India" or word == "India":
                 flagword1 = flagword1 + 1
     print("INDIA BY DONALD TRUMP: " + str(flagword1))
 
